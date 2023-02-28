@@ -1,9 +1,11 @@
-######### Libraries and data ##############################
-# Libraries
-library(rstan)
+## Introduction to Bayesian Analysis for Seabird Research
+## Workshop at PSG 2023 Annual Meeting
 
-# Set working directory
-setwd("C:/Users/Tim Jones/Desktop/PSG Bayes")
+
+######### Libraries and data ##############################
+# Libraries (install packages if needed)
+library(rstan)
+library(here)
 
 # Define the murre dataset and create a plot
 # Data is illustrative only
@@ -36,7 +38,7 @@ plot(count ~ year, data=murre.df, type="p", pch=21, cex=2,lwd=2,
 # Murre colonies range from 10's to millions of birds
 # Define our prior to 
 # - approach 0 closer to B0 = log(1) = 0
-# - appraoch 0 closer to B0 = log(1e7) = 16.12
+# - approach 0 closer to B0 = log(1e7) = 16.12
 B0.prior <- function(x){dnorm(x, mean=8.0, sd=4)}
 
 # Plot the probability distributions
@@ -106,7 +108,7 @@ mod.in = list(N_obs=nrow(murre.df),
 ####
 # Fit model
 murre.model <- stan(
-  file="poisson_glm_psg.stan", # Model definition
+  file = here("code", "poisson_glm_psg.stan"), # Model definition
   data = mod.in,               # List of data inputs
   chains = 4,                  # Number of MCMC chains
   warmup = 4000,               # Number of warm-up iterations
